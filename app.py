@@ -32,8 +32,9 @@ MODEL_DIR = BASE_DIR / "models"
 
 # Auto-train if model not found (e.g. on Streamlit Cloud)
 if not (MODEL_DIR / "best_model.pkl").exists():
-    import subprocess
-    subprocess.run(["python3", "train.py"], check=True)
+    import subprocess, sys
+    train_script = BASE_DIR / "train.py"
+    subprocess.run([sys.executable, str(train_script)], check=True)
 
 # ── CSS overrides ────────────────────────────────────────────────────────────
 st.markdown("""
