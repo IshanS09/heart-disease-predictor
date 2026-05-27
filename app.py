@@ -30,6 +30,11 @@ st.set_page_config(
 BASE_DIR  = Path(__file__).parent
 MODEL_DIR = BASE_DIR / "models"
 
+# Auto-train if model not found (e.g. on Streamlit Cloud)
+if not (MODEL_DIR / "best_model.pkl").exists():
+    import subprocess
+    subprocess.run(["python3", "train.py"], check=True)
+
 # ── CSS overrides ────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
